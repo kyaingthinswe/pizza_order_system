@@ -5,24 +5,32 @@
     <div class="main-content">
         <div class="section__content section__content--p30">
             <div class="container-fluid">
-                <div class="col-8 offset-2">
+                <div class="col-6 offset-3">
                     <div class="card p-4">
                         <div class="card-title text-center">
-                            <h4 class="text-black-50">Account Info</h4>
+                            <h4 class="text-black-50">Edit Account Info</h4>
                         </div>
                         <div class="card-body">
-                            <form action="{{route('password_update')}}" method="post" class="d-flex justify-content-between" novalidate="novalidate">
-                                @csrf
-                                <div class="profile_img img-thumbnail  ">
-                                    @if(\Illuminate\Support\Facades\Auth::user()->profile == 'default_profile.png')
-                                        <img src="{{asset('admin/images/default_profile.png')}}" class="w-100 " alt="">
+                                <div class="position-relative d-flex justify-content-center mb-3 w-50"  style="margin: auto;">
+                                    <button class="btn btn-secondary btn-sm position-absolute edit-btn " style="bottom:-10px;  " >
+                                        <i class="fa fa-edit fa-fw "></i>
+                                    </button>
+                                    @if(Auth::user()->profile == 'default_profile.png')
+                                        <img src="{{asset('admin/images/default_profile.png')}}"  class=" img-thumbnail profile-image " alt="">
                                     @else
-                                        <img src="" class="img-thumbnail rounded-circle" alt="">
+                                        <img src="{{asset('storage/profile/'.Auth::user()->profile)}}" class="img-thumbnail profile-image  "  alt="">
 
                                     @endif
-                                </div>
 
-                                <div class="w-50">
+                                </div>
+                                <form action="{{route('profile_update',Auth::user()->id)}}"  method="post" enctype="multipart/form-data"  novalidate="novalidate">
+                                    @csrf
+                                    <input id="userProfile" value="{{old('userProfile',Auth::user()->profile)}}" name="userProfile" type="file" hidden class="form-control  @error('userProfile')is-invalid @enderror" aria-required="true" aria-invalid="false" >
+                                    @error('userProfile')
+                                    <div class="invalid-feedback">
+                                        <strong class="text-danger">{{$message}}</strong>
+                                    </div>
+                                    @enderror
                                     <div class="form-group">
                                         <label for="userName" class="control-label mb-1">
                                             <i class="fa fa-user fa-fw text-secondary"></i> Name
@@ -63,7 +71,7 @@
                                         <label for="address" class="control-label mb-1">
                                             <i class="fa fa-map-marker-alt fa-fw text-secondary"></i> Address
                                         </label>
-                                        <input id="address" value="{{old('address',Auth::user()->name)}}" name="address" type="text" class="form-control  @error('address')is-invalid @enderror" aria-required="true" aria-invalid="false" >
+                                        <textarea id="address" value="" name="address" type="text" class="form-control  @error('address')is-invalid @enderror" cols="30" rows="2">{{old('address',Auth::user()->address)}}</textarea>
                                         @error('address')
                                         <div class="invalid-feedback">
                                             <strong class="text-danger">{{$message}}</strong>
@@ -71,8 +79,36 @@
                                         @enderror
 
                                     </div>
-                                </div>
-                            </form>
+                                    <div class="form-group">
+                                        <label for="role" class="control-label mb-1">
+                                            <i class="fa fa-users fa-fw text-secondary"></i> Role
+                                        </label>
+                                        <input id="role" value="{{old('role',Auth::user()->role)}}" disabled name="role" type="text" class="form-control  @error('role')is-invalid @enderror" aria-required="true" aria-invalid="false" >
+                                        @error('role')
+                                        <div class="invalid-feedback">
+                                            <strong class="text-danger">{{$message}}</strong>
+                                        </div>
+                                        @enderror
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label> Gender</label>
+                                        <select name="gender" class="form-control @error('gender') is-invalid @enderror" id="">
+                                            <option value="">Choose gender ...</option>
+                                            <option value="male" {{Auth::user()->gender == 'male' ? 'selected':''}}>Male</option>
+                                            <option value="female" {{Auth::user()->gender == 'female' ? 'selected':''}} >Female</option>
+                                        </select>
+                                        @error('gender')
+                                        <span class="invalid-feedback" role="alert">
+                                    <strong class="text-danger fw-bolder">{{ $message }}</strong>
+                                </span>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <button class="btn btn-secondary w-100">Update Profile</button>
+                                    </div>
+
+                                </form>
                         </div>
                     </div>
                 </div>
@@ -81,3 +117,24 @@
     </div>
     <!-- END MAIN CONTENT-->
 @stop
+
+@push('script')
+    <script>
+        let editBtn = document.querySelector('.edit-btn');
+        let userProfile = document.querySelector('#userProfile');
+        let profileImage = document.querySelector('.profile-image');
+        editBtn.addEventListener('click',function () {
+            userProfile.click();
+        });
+        userProfile.addEventListener('change',function () {
+            let reader = new FileReader();
+            // console.log(reader);
+            let file = userProfile.files[0];
+            reader.onload = function () {
+                profileImage.src = reader.result;
+            };
+            reader.readAsDataURL(file);
+
+        });
+     </script>
+@endpush

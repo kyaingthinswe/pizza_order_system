@@ -34,9 +34,12 @@ Route::middleware(['auth'])->group(function () {
             Route::get('password/change/',[AuthController::class,'passwordChange'])->name('password_change');
             Route::post('password/update/',[AuthController::class,'passwordUpdate'])->name('password_update');
         //profile change
-            Route::get('profile/',[AuthController::class,'profile'])->name('profile');
+            Route::get('profile/{id}',[AuthController::class,'profile'])->name('profile');
             Route::get('profile/change/',[AuthController::class,'profileChange'])->name('profile_change');
-            Route::post('profile/update/',[AuthController::class,'profileUpdate'])->name('profile_update');
+            Route::post('profile/update/{id}',[AuthController::class,'profileUpdate'])->name('profile_update');
+        //Admin List
+            Route::get('list/',[AuthController::class,'accountList'])->name('account_list');
+            Route::post('delete/{id}',[AuthController::class,'accountDelete'])->name('account_delete');
         });
         //Category List
         Route::prefix('category')->group(function (){
@@ -46,6 +49,15 @@ Route::middleware(['auth'])->group(function () {
             Route::get('edit/{id}',[CategoryController::class,'edit'])->name('category_edit');
             Route::post('update',[CategoryController::class,'update'])->name('category_update');
             Route::post('delete/{id}',[CategoryController::class,'delete'])->name('category_delete');
+        });
+        Route::prefix('product/')->group(function (){
+            Route::get('list',[\App\Http\Controllers\ProductController::class,'list'])->name('product_list');
+            Route::get('create',[\App\Http\Controllers\ProductController::class,'create'])->name('product_create');
+            Route::post('create',[\App\Http\Controllers\ProductController::class,'store'])->name('product_store');
+            Route::get('detail/{id}',[\App\Http\Controllers\ProductController::class,'detail'])->name('product_detail');
+            Route::get('edit/{id}',[\App\Http\Controllers\ProductController::class,'edit'])->name('product_edit');
+            Route::post('update',[\App\Http\Controllers\ProductController::class,'update'])->name('product_update');
+            Route::post('delete{id}',[\App\Http\Controllers\ProductController::class,'delete'])->name('product_delete');
         });
     });
 

@@ -48,7 +48,27 @@
                     <ul class="list-unstyled navbar__list">
                         <li>
                             <a href="{{route('category_list')}}">
-                                <i class="fas fa-chart-bar"></i>Category</a>
+                                <i class="fas fa-chart-bar fa-fw"></i>Category
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{route('product_create')}}">
+                                <i class="fas fa-pie-chart fa-fw "></i>Product
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{route('account_list')}}">
+                                <i class="fas fa-users fa-fw "></i>Account List
+                            </a>
+                        </li>
+
+                        <li class="mt-3">
+                            <form action="{{route('logout')}}"  method="post">
+                                @csrf
+                                <button type="submit" class="btn btn-success w-100">
+                                    <i class="zmdi zmdi-power ml-2 mr-3"></i>Logout
+                                </button>
+                            </form>
                         </li>
                     </ul>
                 </nav>
@@ -113,7 +133,12 @@
                                 <div class="account-wrap">
                                     <div class="account-item clearfix js-item-menu">
                                         <div class="image">
-                                            <img src="{{ asset('admin/images/default_profile.png')}}" alt="John Doe" />
+                                            @if(\Illuminate\Support\Facades\Auth::user()->profile == 'default_profile.png')
+                                                <img src="{{ asset('admin/images/default_profile.png')}}" alt="John Doe" />
+                                            @else
+                                                <img src="{{ asset('storage/profile/'.auth()->user()->profile)}}" class="rounded-circle img-thumbnail" alt="John Doe" />
+
+                                            @endif
                                         </div>
                                         <div class="content">
                                             <a class="js-acc-btn" href="#">{{Auth::user()->name}}</a>
@@ -122,7 +147,11 @@
                                             <div class="info clearfix">
                                                 <div class="image">
                                                     <a href="#">
-                                                        <img src="{{ asset('admin/images/default_profile.png')}}" alt="John Doe" />
+                                                        @if(\Illuminate\Support\Facades\Auth::user()->profile == 'default_profile.png')
+                                                            <img src="{{ asset('admin/images/default_profile.png')}}" alt="John Doe" />
+                                                        @else
+                                                            <img src="{{ asset('storage/profile/'.auth()->user()->profile)}}" class="rounded-circle img-thumbnail" alt="John Doe" />
+                                                        @endif
                                                     </a>
                                                 </div>
                                                 <div class="content">
@@ -134,7 +163,7 @@
                                             </div>
                                             <div class="account-dropdown__body">
                                                 <div class="account-dropdown__item">
-                                                    <a href="{{route('profile')}}">
+                                                    <a href="{{route('profile',\Illuminate\Support\Facades\Auth::id())}}">
                                                         <i class="zmdi zmdi-account"></i>Account</a>
                                                 </div>
                                             </div>
@@ -147,7 +176,7 @@
                                             <div class="account-dropdown__footer">
                                                 <form action="{{route('logout')}}" class="p-3" method="post">
                                                     @csrf
-                                                    <button type="submit" class="">
+                                                    <button type="submit" class="btn btn-success w-100">
                                                         <i class="zmdi zmdi-power ml-2 mr-3"></i>Logout
                                                     </button>
                                                 </form>
@@ -191,7 +220,8 @@
 </script>
 
 <!-- Main JS-->
-<script src={{asset('admin/js/main.js')}}></script>
+    <script src={{asset('admin/js/main.js')}}></script>
+    @stack('script')
 
 </body>
 

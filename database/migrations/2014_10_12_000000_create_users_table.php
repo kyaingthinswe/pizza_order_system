@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('profile')->default('default_profile.png');
             $table->string('phone');
             $table->string('role')->default('user');
+            $table->string('gender')->default('male');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

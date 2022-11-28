@@ -36,25 +36,41 @@
             </div>
             <div class="form-group">
                 <label> Address</label>
-                <input class="form-control @error('phone') is-invalid @enderror" value="{{ old('phone')}}" type="text" name="address" placeholder="address">
+                <input class="form-control @error('address') is-invalid @enderror" value="{{ old('address')}}" type="text" name="address" placeholder="address">
                 @error('address')
-                    <span class="invalid-feedback" role="alert">
+                <span class="invalid-feedback" role="alert">
                         <strong class="text-danger fw-bolder">{{ $message }}</strong>
                     </span>
                 @enderror
             </div>
             <div class="form-group">
+                <label> Gender</label>
+                <select name="gender" class="form-control @error('gender') is-invalid @enderror" id="">
+                    <option value="">Choose gender ...</option>
+                    <option value="male" {{old('gender') == 'male'? 'selected':''}}>Male</option>
+                    <option value="female" {{old('gender') == 'female'? 'selected':''}}>Female</option>
+                </select>
+                @error('gender')
+                <span class="invalid-feedback" role="alert">
+                        <strong class="text-danger fw-bolder">{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+            <div class="form-group position-relative">
                 <label>Password</label>
-                <input class="form-control @error('password') is-invalid @enderror"  type="password" name="password" placeholder="Password">
+                <i class="fa fa-eye position-absolute eye" style="top: 45px; right: 10px; display: none;"></i>
+                <i class="fa fa-eye-slash position-absolute slash" style="top: 45px; right: 10px; display: block;"></i>
+                <input class="form-control @error('password') is-invalid @enderror password"  type="password" name="password" placeholder="Password">
                 @error('password')
                     <span class="invalid-feedback" role="alert">
                         <strong class="text-danger fw-bolder">{{ $message }}</strong>
                     </span>
                 @enderror
             </div>
-            <div class="form-group">
+            <div class="form-group position-relative">
                 <label>Password</label>
-                <input class="form-control @error('password_confirmation') is-invalid @enderror"  type="password" name="password_confirmation" placeholder="Confirm Password">
+
+                <input class="form-control @error('password_confirmation') is-invalid @enderror "  type="password" name="password_confirmation" placeholder="Confirm Password">
                 @error('password_confirmation')
                     <span class="invalid-feedback" role="alert">
                         <strong class="text-danger fw-bolder">{{ $message }}</strong>
@@ -74,3 +90,24 @@
     </div>
 
     @stop
+@push('script')
+    <script>
+        let password = document.querySelector('.password');
+        let slash = document.querySelector('.slash');
+        let eye = document.querySelector('.eye');
+        slash.addEventListener('click',function () {
+            password.type = 'text';
+            eye.style.display = 'block';
+            this.style.display = 'none';
+        });
+        eye.addEventListener('click',function () {
+            password.type = 'password';
+            slash.style.display = 'block';
+            this.style.display = 'none';
+        });
+
+
+
+
+    </script>
+    @endpush
