@@ -58,8 +58,8 @@
                                     <td>{{$user->id}}</td>
                                     <td>
                                         @if($user->profile == 'default_profile.png')
-                                            <img src="{{asset('admin/images/default_profile.png')}}" class="img-thumbnail" style="width: 100px;" alt="">
-                                            @else
+                                            <img src="{{ $user->gender == 'male'? asset('admin/images/default_profile.png'):asset('admin/images/default_female.png')}}" class=" img-thumbnail" style="width: 100px;" alt="">
+                                        @else
                                             <img src="{{asset('storage/profile/'.$user->profile)}}" class="img-thumbnail" style="width: 100px;" alt="">
                                         @endif
                                     </td>
@@ -69,6 +69,16 @@
                                     <td>{{$user->role}}</td>
                                     <td>
                                         <div class="table-data-feature">
+                                            @if($user->id != Auth::id())
+                                               @if($user->role != 'admin')
+                                                    <form action="{{route('account_change_role',$user->id)}}" method="post" class="mr-2">
+                                                        @csrf
+                                                        <button type="submit" class="item " data-toggle="tooltip" data-placement="top" title="Change Admin">
+                                                            <i class="fa-solid fa-recycle text-success"></i>
+                                                        </button>
+                                                    </form>
+                                                @endif
+                                            @endif
                                             <a href="{{route('profile',$user->id)}}" class="mr-2">
                                                 <button class="item " data-toggle="tooltip" data-placement="top" title="Detail">
                                                     <i class="zmdi zmdi-eye text-info"></i>

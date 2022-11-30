@@ -16,7 +16,7 @@
     <link href={{asset('admin/vendor/font-awesome-4.7/css/font-awesome.min.css')}} rel="stylesheet" media="all">
     <link href={{asset('admin/vendor/font-awesome-5/css/fontawesome-all.min.css')}} rel="stylesheet" media="all">
     <link href={{asset('admin/vendor/mdi-font/css/material-design-iconic-font.min.css')}} rel="stylesheet" media="all">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Bootstrap CSS-->
     <link href={{asset('admin/vendor/bootstrap-4.1/bootstrap.min.css')}} rel="stylesheet" media="all">
 
@@ -48,12 +48,12 @@
                     <ul class="list-unstyled navbar__list">
                         <li>
                             <a href="{{route('category_list')}}">
-                                <i class="fas fa-chart-bar fa-fw"></i>Category
+                                <i class="fas fa-database"></i>Category
                             </a>
                         </li>
                         <li>
                             <a href="{{route('product_create')}}">
-                                <i class="fas fa-pie-chart fa-fw "></i>Product
+                                <i class="fas fa-pizza-slice"></i>Product
                             </a>
                         </li>
                         <li>
@@ -66,7 +66,7 @@
                             <form action="{{route('logout')}}"  method="post">
                                 @csrf
                                 <button type="submit" class="btn btn-success w-100">
-                                    <i class="zmdi zmdi-power ml-2 mr-3"></i>Logout
+                                    <i class="fas fa-sign-out-alt fa-fw mr-2"></i>Logout
                                 </button>
                             </form>
                         </li>
@@ -133,11 +133,20 @@
                                 <div class="account-wrap">
                                     <div class="account-item clearfix js-item-menu">
                                         <div class="image">
-                                            @if(\Illuminate\Support\Facades\Auth::user()->profile == 'default_profile.png')
-                                                <img src="{{ asset('admin/images/default_profile.png')}}" alt="John Doe" />
-                                            @else
-                                                <img src="{{ asset('storage/profile/'.auth()->user()->profile)}}" class="rounded-circle img-thumbnail" alt="John Doe" />
+                                            @if(\Illuminate\Support\Facades\Auth::user()->role == 'male')
+                                                @if(\Illuminate\Support\Facades\Auth::user()->profile == 'default_profile.png')
+                                                    <img src="{{ asset('admin/images/default_profile.png')}}" alt="John Doe" />
+                                                @else
+                                                    <img src="{{ asset('storage/profile/'.auth()->user()->profile)}}" class="rounded-circle img-thumbnail" alt="John Doe" />
 
+                                                @endif
+                                            @else
+                                                @if(\Illuminate\Support\Facades\Auth::user()->profile == 'default_profile.png')
+                                                    <img src="{{ asset('admin/images/default_female.png')}}" alt="John Doe" />
+                                                @else
+                                                    <img src="{{ asset('storage/profile/'.auth()->user()->profile)}}" class="rounded-circle img-thumbnail" alt="John Doe" />
+
+                                                @endif
                                             @endif
                                         </div>
                                         <div class="content">

@@ -54,14 +54,18 @@ class AuthController extends Controller
     //profile change
     public function profile($id){
         $user = User::where('id',$id)->first();
-//        dd($user->toArray());
+    //    dd($user->toArray());
         return view('admin.account.profile',compact('user'));
     }
-    public function profileChange(){
-        return view('admin.account.profileChange');
+    public function profileChange($id){
+        $user = User::where('id',$id)->first();
+        return view('admin.account.profileChange',$user);
     }
+    // public function profileChange(){
+    //     return view('admin.account.profileChange');
+    // }
     public function profileUpdate(Request $request,$id){
-//        dd($id,$request->all());
+    //    dd($id,$request->all());
         $this->validateProfileUpdate($request);
         $data = [
             'name' => $request->userName,
@@ -87,7 +91,7 @@ class AuthController extends Controller
             $data['profile'] = $newName; // store in database
         }
         User::where('id',$id)->update($data);
-        return redirect()->route('profile')->with('status','Profile is updated ...');
+        return redirect()->route('profile',Auth::id())->with('status','Profile is updated ...');
 
     }
     //Account List
@@ -98,6 +102,15 @@ class AuthController extends Controller
         })->paginate(3);
         $users->appends(\request()->all());
         return view('admin.account.accountList',compact('users'));
+    }
+    //Account Change Role
+    public function accountChangeRole(Request $request,$id){
+        User::where('id',$id)->update([
+            'role' => 'admin',
+        ]);
+        return redirect()->back()->with('status','Admin change success...');
+
+
     }
     //Account Delete
     public function accountDelete($id){

@@ -81,7 +81,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="role" class="control-label mb-1">
-                                            <i class="fa fa-users fa-fw text-secondary"></i> Role
+                                            <i class="far fa-user-circle"></i> Role
                                         </label>
                                         <input id="role" value="{{old('role',Auth::user()->role)}}" disabled name="role" type="text" class="form-control  @error('role')is-invalid @enderror" aria-required="true" aria-invalid="false" >
                                         @error('role')
@@ -92,7 +92,7 @@
 
                                     </div>
                                     <div class="form-group">
-                                        <label> Gender</label>
+                                        <label> <i class="fas fa-venus-mars"></i>Gender</label>
                                         <select name="gender" class="form-control @error('gender') is-invalid @enderror" id="">
                                             <option value="">Choose gender ...</option>
                                             <option value="male" {{Auth::user()->gender == 'male' ? 'selected':''}}>Male</option>
@@ -100,14 +100,13 @@
                                         </select>
                                         @error('gender')
                                         <span class="invalid-feedback" role="alert">
-                                    <strong class="text-danger fw-bolder">{{ $message }}</strong>
-                                </span>
+                                            <strong class="text-danger fw-bolder">{{ $message }}</strong>
+                                        </span>
                                         @enderror
                                     </div>
                                     <div class="form-group">
                                         <button class="btn btn-secondary w-100">Update Profile</button>
                                     </div>
-
                                 </form>
                         </div>
                     </div>

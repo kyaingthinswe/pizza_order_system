@@ -20,10 +20,9 @@
                                 @csrf
                                 <div class="profile_img  ">
                                     @if($user->profile == 'default_profile.png')
-                                        <img src="{{asset('admin/images/default_profile.png')}}" class="w-100 img-thumbnail" alt="">
+                                        <img src="{{ $user->gender == 'male'? asset('admin/images/default_profile.png'):asset('admin/images/default_female.png')}}" class="w-100 img-thumbnail" alt="">
                                     @else
                                         <img src="{{asset('storage/profile/'.$user->profile)}}" class="img-thumbnail rounded-circle" alt="">
-
                                     @endif
                                 </div>
                                 <div class="w-50 ">
@@ -40,10 +39,13 @@
                                         <i class="fa fa-map-marker-alt fa-fw text-secondary"></i> {{$user->address}}
                                     </p>
                                     <p class="text-black-50 mb-2 font-weight-lighter ">
+                                        <i class="fas fa-venus-mars fa-fw text-secondary"></i> {{$user->gender}}
+                                    </p>
+                                    <p class="text-black-50 mb-2 font-weight-lighter ">
                                         <i class="fa fa-calendar-alt fa-fw text-secondary"></i> {{$user->created_at->format('D, F d, Y')}}
                                     </p>
                                     @if($user->id == \Illuminate\Support\Facades\Auth::id())
-                                        <a href="{{route('profile_change')}}" class="btn btn-secondary w-75">
+                                        <a href="{{route('profile_change',Auth::id())}}" class="btn btn-secondary w-75">
                                             Edit Profile <i class="fa fa-arrow-right fa-fw ml-1"></i>
                                         </a>
                                     @endif

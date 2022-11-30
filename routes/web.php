@@ -35,10 +35,11 @@ Route::middleware(['auth'])->group(function () {
             Route::post('password/update/',[AuthController::class,'passwordUpdate'])->name('password_update');
         //profile change
             Route::get('profile/{id}',[AuthController::class,'profile'])->name('profile');
-            Route::get('profile/change/',[AuthController::class,'profileChange'])->name('profile_change');
+            Route::get('profile/change/{id}',[AuthController::class,'profileChange'])->name('profile_change');
             Route::post('profile/update/{id}',[AuthController::class,'profileUpdate'])->name('profile_update');
         //Admin List
             Route::get('list/',[AuthController::class,'accountList'])->name('account_list');
+            Route::post('changeRole/{id}',[AuthController::class,'accountChangeRole'])->name('account_change_role');
             Route::post('delete/{id}',[AuthController::class,'accountDelete'])->name('account_delete');
         });
         //Category List

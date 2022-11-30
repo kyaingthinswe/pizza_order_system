@@ -23,23 +23,23 @@
                                 </h5>
                             </div>
                             <div class=" m-auto w-75">
-                                <img src="{{asset('storage/product/'.$product->image)}}" class="img-thumbnail " alt="">
+                                <img src="{{asset('storage/product/'.$product->image)}}" class="img-thumbnail w-100" alt="">
                             </div>
                             <div class="mb-2">
                                 <div class="d-flex justify-content-between w-75 m-auto">
                                     <div class="">
-                                        <p class="badge badge-pill p-2 " >
-                                            <i class="fa fa-calculator fa-fw mr-1"></i>{{$product->price}}
+                                        <p class="badge  p-2 " >
+                                            <i class="fas fa-dollar-sign mr-1"></i>{{$product->price}}
                                         </p>
-                                        <p class="badge badge-pill p-2 " >
-                                            <i class="fa fa-clock-o fa-fw mr-1"></i>{{$product->waiting_time}}
+                                        <p class="badge  p-2 " >
+                                            <i class="fa fa-user-clock fa-fw mr-1"></i>{{$product->waiting_time}}
                                         </p>
-                                        <p class="badge badge-pill p-2 " >
+                                        <p class="badge  p-2 " >
                                             <i class="fa fa-eye fa-fw mr-1"></i>{{$product->view_count}}
                                         </p>
                                     </div>
                                     <div class="">
-                                        <p>
+                                        <p class="badge  p-2 " >
                                             <i class="fa fa-calendar-alt"></i> {{$product->created_at->format('D,M,Y')}}
                                         </p>
                                     </div>

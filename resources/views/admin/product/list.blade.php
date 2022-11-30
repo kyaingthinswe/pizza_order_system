@@ -72,7 +72,7 @@
                                     <td class="desc ">{{\Illuminate\Support\Str::words($p->description,3,'...')}}</td>
                                     <td class="desc text-center">{{$p->category->name}}</td>
                                     <td class="desc">{{$p->price}}</td>
-                                    <td class="text-center">{{$p->waiting_time}}</td>
+                                    <td class="text-center">{{$p->waiting_time}} hr</td>
                                     <td class="text-center">{{$p->view_count}}</td>
                                     <td>
                                         <div class="table-data-feature">
