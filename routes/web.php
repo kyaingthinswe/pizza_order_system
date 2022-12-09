@@ -64,10 +64,21 @@ Route::middleware(['auth'])->group(function () {
 
     //User
     Route::group(['prefix'=>'user','middleware'=> 'isUser'],function (){
-        Route::get('home/',function (){
-            return view('user.home');
-        })->name('user_home');
+        Route::get('home/',[\App\Http\Controllers\HomeController::class,'home'])->name('user_home');
+        Route::get('sorting/',[\App\Http\Controllers\HomeController::class,'sorting'])->name('user_sorting');
+        Route::get('filter/category/{id}',[\App\Http\Controllers\HomeController::class,'filterCategory'])->name('user_filterCategory');
+        Route::get('detail/{id}',[\App\Http\Controllers\HomeController::class,'detail'])->name('user_detail');
+        // Cart
+        Route::get('addToCart/',[\App\Http\Controllers\CartController::class,'addToCart'])->name('user_addToCart');
+        Route::get('cartList/',[\App\Http\Controllers\CartController::class,'cartList'])->name('user_cartList');
+        //Account
+        Route::get('profile/',[\App\Http\Controllers\UserController::class,'profile'])->name('user_profile');
+        Route::get('profile/change/{id}',[\App\Http\Controllers\UserController::class,'profileChange'])->name('user_profileChange');
+        Route::post('profile/update/{id}',[\App\Http\Controllers\UserController::class,'profileUpdate'])->name('user_profileUpdate');
+        Route::get('password/change/',[\App\Http\Controllers\UserController::class,'passwordChange'])->name('user_passwordChange');
+        Route::post('password/update/',[\App\Http\Controllers\UserController::class,'passwordUpdate'])->name('user_passwordUpdate');
     });
+
 
 
 
