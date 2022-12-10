@@ -7,12 +7,14 @@
         <div class="row pb-3">
             <div class="col-12 pb-2">
                 <div class="d-flex align-items-center justify-content-between ">
-                    <a href="{{route('user_cartList')}}" class="btn btn-sm btn-dark text-primary position-relative rounded text-decoration-none">
-                        <i class="fa fa-cart-plus fa-fw"></i>
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary text-dark ">
-                            {{count($carts)!=0 ? count($carts):""}}
+                    <div>
+                        <a href="{{route('user_cartList')}}" class="btn btn-sm btn-dark text-primary position-relative rounded text-decoration-none">
+                            <i class="fa fa-cart-plus fa-fw"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary text-dark ">
+                            {{count($carts)}}
                         </span>
-                    </a>
+                        </a>
+                    </div>
                     <div class="ml-2">
                         <div class="btn-group">
                             <select name="sorting" class="form-control border-0 " id="eventOption">
@@ -40,15 +42,9 @@
                             <div class="text-center py-4">
                                 <a class="h6 text-decoration-none text-truncate" href="">{{$p->name}}</a>
                                 <div class="d-flex align-items-center justify-content-center mt-2">
-                                    <h5>{{$p->price}} kyats</h5><h6 class="text-muted ml-2"><del>{{$p->price}}</del></h6>
+                                    <h5>{{$p->price}} kyats</h5>
                                 </div>
-                                <div class="d-flex align-items-center justify-content-center mb-1">
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                </div>
+
                             </div>
                         </div>
                     </div>

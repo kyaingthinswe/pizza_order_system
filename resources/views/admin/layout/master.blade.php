@@ -132,22 +132,13 @@
                                 </div>
                                 <div class="account-wrap">
                                     <div class="account-item clearfix js-item-menu">
-                                        <div class="image">
-                                            @if(\Illuminate\Support\Facades\Auth::user()->role == 'male')
-                                                @if(\Illuminate\Support\Facades\Auth::user()->profile == 'default_profile.png')
-                                                    <img src="{{ asset('admin/images/default_profile.png')}}" alt="John Doe" />
-                                                @else
-                                                    <img src="{{ asset('storage/profile/'.auth()->user()->profile)}}" class="rounded-circle img-thumbnail" alt="John Doe" />
-
-                                                @endif
+                                        <div class="image" style="width: 40px;height: 40px;object-fit: cover;">
+                                            @if(\Illuminate\Support\Facades\Auth::user()->profile == 'default_profile.png')
+                                                <img src="{{ \Illuminate\Support\Facades\Auth::user()->gender == 'male'? asset('admin/images/default_profile.png'):asset('admin/images/default_female.png')}}" class="w-100 h-100 rounded-circle img-thumbnail" alt="">
                                             @else
-                                                @if(\Illuminate\Support\Facades\Auth::user()->profile == 'default_profile.png')
-                                                    <img src="{{ asset('admin/images/default_female.png')}}" alt="John Doe" />
-                                                @else
-                                                    <img src="{{ asset('storage/profile/'.auth()->user()->profile)}}" class="rounded-circle img-thumbnail" alt="John Doe" />
-
-                                                @endif
+                                                <img src="{{asset('storage/profile/'.\Illuminate\Support\Facades\Auth::user()->profile)}}" class="w-100 h-100 img-thumbnail rounded-circle" alt="">
                                             @endif
+
                                         </div>
                                         <div class="content">
                                             <a class="js-acc-btn" href="#">{{Auth::user()->name}}</a>

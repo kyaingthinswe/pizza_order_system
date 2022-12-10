@@ -45,7 +45,7 @@
                                         <i class="fa fa-calendar-alt fa-fw text-secondary"></i> {{$user->created_at->format('D, F d, Y')}}
                                     </p>
                                     @if($user->id == \Illuminate\Support\Facades\Auth::id())
-                                        <a href="{{route('profile_change',Auth::id())}}" class="btn btn-secondary w-75">
+                                        <a href="{{route('profile_change',\Illuminate\Support\Facades\Auth::id())}}" class="btn btn-secondary w-75">
                                             Edit Profile <i class="fa fa-arrow-right fa-fw ml-1"></i>
                                         </a>
                                     @endif

@@ -16,9 +16,15 @@
                 </tr>
                 </thead>
                 <tbody class="align-middle" >
-                @foreach($carts as $c)
+                @forelse($carts as $c)
                     <tr>
-                        <td class="align-middle text-left pl-4">{{$c->product->name}}</td>
+
+                        <td class="align-middle text-left pl-4">
+                            <img src="{{asset('storage/product/'.$c->product->image)}}" class="img-thumbnail mr-2" style="width: 100px;" alt="">
+                            {{$c->product->name}}
+                            <input type="hidden" value="{{\Illuminate\Support\Facades\Auth::id()}}" id="userId">
+                            <input type="hidden" value="{{$c->product->id}}" id="productId">
+                        </td>
                         <td class="align-middle" id="price">{{$c->product->price}} kyats</td>
                         <td class="align-middle">
                             <div class="input-group quantity mx-auto" style="width: 100px;">
@@ -38,7 +44,13 @@
                         <td class="align-middle" id="total">{{$c->product->price * $c->qty}} kyats</td>
                         <td class="align-middle"><button class="btn btn-sm btn-danger btn-remove" ><i class="fa fa-times"></i></button></td>
                     </tr>
-                @endforeach
+                @empty
+                    <tr >
+                        <td class="h4 text-primary bg-dark text-center" colspan="5">
+                            There is no order
+                        </td>
+                    </tr>
+                @endforelse
                 </tbody>
             </table>
         </div>
@@ -60,7 +72,7 @@
                         <h5>Total</h5>
                         <h5 id="finalPrice">{{$total+3000}} kyats</h5>
                     </div>
-                    <button class="btn btn-block btn-primary font-weight-bold my-3 py-3">Proceed To Checkout</button>
+                    <button class="btn btn-block btn-primary font-weight-bold my-3 py-3" id="checkoutBtn">Proceed To Checkout</button>
                 </div>
             </div>
         </div>
@@ -115,6 +127,37 @@
                 $("#subTotal").html(`${$subTotal} kyats`);
                 $("#finalPrice").html(`${$subTotal+3000} kyats`);
             }
+
+            //checkoutBtn
+            $('#checkoutBtn').click(()=>{
+
+                $orderCode = Math.floor(Math.random()*1000001);
+                $data = [];
+                $('tbody tr').each(function (index,row) {
+                    // console.log($row);
+                    $data.push({
+                        user_id : $(row).find('#userId').val(),
+                        product_id : $(row).find('#productId').val(),
+                        qty : $(row).find('#qty').val(),
+                        total :$total = $(row).find('#total').html().replace('kyats','')*1,
+                        order_code : "POS"+$orderCode,
+                    });
+                    // console.log($data);
+                    // console.log(typeof ($data[0].total))
+                });
+                $.ajax({
+                    type : 'get',
+                    url : 'http://127.0.0.1:8000/user/orderList',
+                    data : Object.assign({},$data),
+                    dataType : 'json',
+                    success : function (response) {
+                        if (response.status == 200){
+                            location.href = 'http://127.0.0.1:8000/user/home';
+                        }
+
+                    }
+                })
+            });
 
         })
     </script>

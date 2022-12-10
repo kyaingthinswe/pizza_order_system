@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\Order;
+use App\Models\OrderList;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use function Symfony\Component\String\length;
@@ -36,5 +38,27 @@ class CartController extends Controller
 //            dd(var_dump($total));
         }
         return view('user.cart',compact('carts','total'));
+    }
+
+    public function orderList(Request $request){
+//        logger($request->all());
+        $total = 0;
+        foreach ($request->all() as $item){
+//            logger($item);
+            $data = OrderList::create($item);
+            $total += $data->total;
+        }
+//        logger($data->product_id);
+        Cart::where('user_id',Auth::id())->delete();
+        Order::create([
+           'user_id' =>  Auth::id(),
+            'order_code' => $data->order_code,
+            'total_price' => $total +3000,
+        ]);
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'order list success',
+        ],200);
     }
 }

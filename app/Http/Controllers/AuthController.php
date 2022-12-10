@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Testing\Fluent\Concerns\Has;
 
 class AuthController extends Controller
 {
@@ -40,10 +41,12 @@ class AuthController extends Controller
         $hashPassword = User::where('id',Auth::user()->id)->pluck('password')->first();
 //        return $hashPassword;
 //        password_verify() == Hash::check()
-        if (password_verify($request->oldPassword,$hashPassword)){
+        if (Hash::check($request->oldPassword,$hashPassword)){
+
             $data = [
                 'password' => Hash::make($request->newPassword),
             ];
+
             User::where('id',Auth::user()->id)->update($data);
             Auth::logout();
             return redirect()->route('loginPage');
@@ -59,13 +62,14 @@ class AuthController extends Controller
     }
     public function profileChange($id){
         $user = User::where('id',$id)->first();
+//        dd($user);
         return view('admin.account.profileChange',$user);
     }
     // public function profileChange(){
     //     return view('admin.account.profileChange');
     // }
     public function profileUpdate(Request $request,$id){
-    //    dd($id,$request->all());
+//        dd($id,$request->all());
         $this->validateProfileUpdate($request);
         $data = [
             'name' => $request->userName,

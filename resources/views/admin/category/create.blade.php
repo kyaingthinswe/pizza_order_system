@@ -37,7 +37,7 @@
                                 </div>
 
                                 <div>
-                                    <button id="payment-button" type="submit" class="btn btn-lg btn-info btn-block">
+                                    <button id="payment-button" type="submit" class="btn btn-lg btn-success btn-block">
                                         <span id="payment-button-amount">
                                             Create
                                         </span>

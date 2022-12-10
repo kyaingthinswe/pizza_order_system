@@ -55,14 +55,14 @@
                         </div>
                         <div class="dropdown dropend mr-3">
                             <a class=" dropdown-toggle d-flex align-items-center text-decoration-none" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <div class=" mr-2" style="width:40px;object-fit: cover;">
+                                <div class=" mr-2" style="width:30px;height: 30px; object-fit: cover;">
                                     @if(\Illuminate\Support\Facades\Auth::user()->profile == 'default_profile.png')
-                                        <img src="{{\Illuminate\Support\Facades\Auth::user()->gender == 'male'? asset('admin/images/default_profile.png'):asset('admin/images/default_female.png')}}" class=" w-100 rounded-circle img-thumbnail"  alt="">
+                                        <img src="{{\Illuminate\Support\Facades\Auth::user()->gender == 'male'? asset('admin/images/default_profile.png'):asset('admin/images/default_female.png')}}" class=" w-100 h-100 rounded-circle img-thumbnail"  alt="">
                                     @else
-                                        <img src="{{ asset('storage/profile/'.auth()->user()->profile)}}" class="rounded-circle img-thumbnail" alt="John Doe" />
+                                        <img src="{{ asset('storage/profile/'.auth()->user()->profile)}}" class=" w-100 h-100 rounded-circle img-thumbnail" alt="John Doe" />
                                     @endif
                                 </div>
-                                <span class="text-warning">{{\Illuminate\Support\Facades\Auth::user()->name}}</span>
+                                <span class="text-warning text-capitalize">{{\Illuminate\Support\Facades\Auth::user()->name}}</span>
                             </a>
 
                             <ul class="dropdown-menu pb-0">

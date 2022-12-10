@@ -15,15 +15,14 @@
                                     <button class="btn btn-secondary btn-sm position-absolute edit-btn " style="bottom:-10px;  " >
                                         <i class="fa fa-edit fa-fw "></i>
                                     </button>
-                                    @if(Auth::user()->profile == 'default_profile.png')
-                                        <img src="{{asset('admin/images/default_profile.png')}}"  class=" img-thumbnail profile-image " alt="">
+                                    @if(\Illuminate\Support\Facades\Auth::user()->profile == 'default_profile.png')
+                                        <img src="{{ \Illuminate\Support\Facades\Auth::user()->gender == 'male'? asset('admin/images/default_profile.png'):asset('admin/images/default_female.png')}}"  class=" img-thumbnail profile-image " alt="">
                                     @else
                                         <img src="{{asset('storage/profile/'.Auth::user()->profile)}}" class="img-thumbnail profile-image  "  alt="">
-
                                     @endif
 
                                 </div>
-                                <form action="{{route('profile_update',Auth::user()->id)}}"  method="post" enctype="multipart/form-data"  novalidate="novalidate">
+                                <form action="{{route('profile_update',\Illuminate\Support\Facades\Auth::id())}}"  method="post" enctype="multipart/form-data"  novalidate="novalidate">
                                     @csrf
                                     <input id="userProfile" value="{{old('userProfile',Auth::user()->profile)}}" name="userProfile" type="file" hidden class="form-control  @error('userProfile')is-invalid @enderror" aria-required="true" aria-invalid="false" >
                                     @error('userProfile')

@@ -67,10 +67,11 @@ Route::middleware(['auth'])->group(function () {
         Route::get('home/',[\App\Http\Controllers\HomeController::class,'home'])->name('user_home');
         Route::get('sorting/',[\App\Http\Controllers\HomeController::class,'sorting'])->name('user_sorting');
         Route::get('filter/category/{id}',[\App\Http\Controllers\HomeController::class,'filterCategory'])->name('user_filterCategory');
-        Route::get('detail/{id}',[\App\Http\Controllers\HomeController::class,'detail'])->name('user_detail');
+        Route::get('detail/{id}',[\App\Http\Controllers\HomeController::class,'detail'])->name('user_detail'); // using ajax
         // Cart
         Route::get('addToCart/',[\App\Http\Controllers\CartController::class,'addToCart'])->name('user_addToCart');
         Route::get('cartList/',[\App\Http\Controllers\CartController::class,'cartList'])->name('user_cartList');
+        Route::get('orderList/',[\App\Http\Controllers\CartController::class,'orderList'])->name('user_orderList'); //using ajax
         //Account
         Route::get('profile/',[\App\Http\Controllers\UserController::class,'profile'])->name('user_profile');
         Route::get('profile/change/{id}',[\App\Http\Controllers\UserController::class,'profileChange'])->name('user_profileChange');

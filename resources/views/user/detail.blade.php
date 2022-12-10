@@ -116,9 +116,10 @@
                     data : $source,
                     dataType : 'json',
                     success : function (response) {
-                        // console.log(response.status);
+                        console.log(response.status);
                         if (response.status == 200){
-                            location.href = 'http://127.0.0.1:8000/user/home';
+                            // location.href = 'http://127.0.0.1:8000/user/home';
+                            alert('Your order is confirmed ...');
                         }
                     }
                 })
