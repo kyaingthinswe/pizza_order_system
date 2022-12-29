@@ -40,6 +40,19 @@ class CartController extends Controller
         return view('user.cart',compact('carts','total'));
     }
 
+    //Cart Row Remove
+    public function cartRowRemove(Request $request){
+        logger($request->all());
+//        logger(Cart::first());
+        Cart::where('user_id',Auth::id())->where('id',$request->cart_id)->delete();
+
+
+    }
+    public function cartRowsRemove(Request $request){
+//        logger($request->all());
+        Cart::where('user_id',Auth::id())->delete();
+    }
+
     public function orderList(Request $request){
 //        logger($request->all());
         $total = 0;
@@ -60,5 +73,10 @@ class CartController extends Controller
             'status' => 200,
             'message' => 'order list success',
         ],200);
+    }
+    public function order(){
+        $orders = Order::where('user_id',Auth::id())->orderBy('created_at','desc')->paginate(3);
+        // dd($orders->toArray());
+        return view('user.order',compact('orders'));
     }
 }

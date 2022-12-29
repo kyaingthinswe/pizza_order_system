@@ -32,28 +32,90 @@
     <!-- Main CSS-->
     <link href={{asset('admin/css/theme.css')}} rel="stylesheet" media="all">
     <link rel="stylesheet" href="{{asset('admin/css/style.css')}}">
+    <style>
+
+        @media screen and (max-width: 992px){
+            #menu-sidebar{
+                transform: translateX(-300px);
+                position: fixed;
+                z-index: 5;
+                width: 300px;
+                transition: 0.5s;
+            }
+
+            #menu-sidebar.show-sidebar{
+                transform: translateX(0px) !important;
+            }
+            .page-container {
+                position: relative;
+                top: 0;
+                padding-left: 0;
+            }
+            .header-desktop {
+                height: 80px;
+            }
+            .header-button{
+                margin-top: 0;
+            }
+        }
+</style>
 </head>
 
 <body class="animsition">
     <div class="page-wrapper">
         <!-- MENU SIDEBAR-->
-        <aside class="menu-sidebar d-none d-lg-block">
-            <div class="logo">
+{{--        <aside class="menu-sidebar d-none d-lg-block">--}}
+            <aside class="menu-sidebar" id="menu-sidebar">
+            <div class="logo d-flex justify-content-between">
                 <a href="#">
                     <img src="{{asset('admin/images/icon/logo.png')}}" alt="Cool Admin" />
                 </a>
+                <button class="btn btn-light d-block d-lg-none" id="hideSidebar">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
             <div class="menu-sidebar__content js-scrollbar1">
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
+                       <p class="text-muted text-uppercase p-2" style="background: #e5e5e5;">Category Section</p>
+                       <li>
+                           <a href="{{route('category_create')}}">
+                               <i class="fas fa-plus-circle"></i>Create Category
+                           </a>
+                       </li>
+                       <li>
+                           <a href="{{route('category_list')}}">
+                               <i class="fas fa-database"></i>Category List
+                           </a>
+                       </li>
+
+                        <p class="text-muted text-uppercase p-2 mt-2" style="background: #e5e5e5;" >Product Section</p>
                         <li>
-                            <a href="{{route('category_list')}}">
-                                <i class="fas fa-database"></i>Category
+                            <a href="{{route('product_create')}}">
+                                <i class="fas fa-plus-circle"></i>Create Product
                             </a>
                         </li>
                         <li>
-                            <a href="{{route('product_create')}}">
-                                <i class="fas fa-pizza-slice"></i>Product
+                            <a href="{{route('product_list')}}">
+                                <i class="fas fa-pizza-slice"></i> Product List
+                            </a>
+                        </li>
+                        <p class="text-muted text-uppercase p-2 mt-2" style="background: #e5e5e5;" >Order Section</p>
+                        <li>
+                            <a href="{{route('order_list')}}">
+                                <i class="fa-solid fa-arrow-up-wide-short"></i>Order List
+                            </a>
+                        </li>
+                        <p class="text-muted text-uppercase p-2 mt-2" style="background: #e5e5e5;" >User Message </p>
+                        <li>
+                            <a href="{{route('contact_list')}}">
+                                <i class="fa-solid fa-comments"></i>User Message
+                            </a>
+                        </li>
+                        <p class="text-muted text-uppercase p-2 mt-2" style="background: #e5e5e5;" >Account Section</p>
+                        <li>
+                            <a href="{{route('profile_change',\Illuminate\Support\Facades\Auth::id())}}">
+                                <i class="fas fa-edit fa-fw "></i>Edit Account
                             </a>
                         </li>
                         <li>
@@ -62,10 +124,10 @@
                             </a>
                         </li>
 
-                        <li class="mt-3">
+                        <li class="my-3 mb-5">
                             <form action="{{route('logout')}}"  method="post">
                                 @csrf
-                                <button type="submit" class="btn btn-success w-100">
+                                <button type="submit" class="btn btn-danger w-100">
                                     <i class="fas fa-sign-out-alt fa-fw mr-2"></i>Logout
                                 </button>
                             </form>
@@ -75,11 +137,10 @@
             </div>
         </aside>
         <!-- END MENU SIDEBAR-->
-
         <!-- PAGE CONTAINER-->
         <div class="page-container">
             <!-- HEADER DESKTOP-->
-            <header class="header-desktop">
+            <header class="header-desktop position-fixed">
                 <div class="section__content section__content--p30">
                     <div class="container-fluid">
                         <div class="header-wrap ">
@@ -88,55 +149,17 @@
                                     <i class="fa fa-warning"></i> {{session('masterStatus')}}
                                 </div>
                             @endif
-                            <div class="header-button float-end">
-                                <div class="noti-wrap">
-                                    <div class="noti__item js-item-menu">
-                                        <i class="zmdi zmdi-notifications"></i>
-                                        <span class="quantity">3</span>
-                                        <div class="notifi-dropdown js-dropdown">
-                                            <div class="notifi__title">
-                                                <p>You have 3 Notifications</p>
-                                            </div>
-                                            <div class="notifi__item">
-                                                <div class="bg-c1 img-cir img-40">
-                                                    <i class="zmdi zmdi-email-open"></i>
-                                                </div>
-                                                <div class="content">
-                                                    <p>You got a email notification</p>
-                                                    <span class="date">April 12, 2018 06:50</span>
-                                                </div>
-                                            </div>
-                                            <div class="notifi__item">
-                                                <div class="bg-c2 img-cir img-40">
-                                                    <i class="zmdi zmdi-account-box"></i>
-                                                </div>
-                                                <div class="content">
-                                                    <p>Your account has been blocked</p>
-                                                    <span class="date">April 12, 2018 06:50</span>
-                                                </div>
-                                            </div>
-                                            <div class="notifi__item">
-                                                <div class="bg-c3 img-cir img-40">
-                                                    <i class="zmdi zmdi-file-text"></i>
-                                                </div>
-                                                <div class="content">
-                                                    <p>You got a new file</p>
-                                                    <span class="date">April 12, 2018 06:50</span>
-                                                </div>
-                                            </div>
-                                            <div class="notifi__footer">
-                                                <a href="#">All notifications</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="header-button  float-end">
+                                <button class="btn btn-light d-lg-none" id="showSidebar">
+                                    <i class="fas fa-bars"></i>
+                                </button>
                                 <div class="account-wrap">
                                     <div class="account-item clearfix js-item-menu">
                                         <div class="image" style="width: 40px;height: 40px;object-fit: cover;">
                                             @if(\Illuminate\Support\Facades\Auth::user()->profile == 'default_profile.png')
                                                 <img src="{{ \Illuminate\Support\Facades\Auth::user()->gender == 'male'? asset('admin/images/default_profile.png'):asset('admin/images/default_female.png')}}" class="w-100 h-100 rounded-circle img-thumbnail" alt="">
                                             @else
-                                                <img src="{{asset('storage/profile/'.\Illuminate\Support\Facades\Auth::user()->profile)}}" class="w-100 h-100 img-thumbnail rounded-circle" alt="">
+                                                <img src="{{asset('storage/profile/'.\Illuminate\Support\Facades\Auth::user()->profile)}}" class="w-100 h-100  rounded-circle" alt="">
                                             @endif
 
                                         </div>
@@ -144,17 +167,16 @@
                                             <a class="js-acc-btn" href="#">{{Auth::user()->name}}</a>
                                         </div>
                                         <div class="account-dropdown js-dropdown">
-                                            <div class="info clearfix">
-                                                <div class="image">
-                                                    <a href="#">
-                                                        @if(\Illuminate\Support\Facades\Auth::user()->profile == 'default_profile.png')
-                                                            <img src="{{ asset('admin/images/default_profile.png')}}" alt="John Doe" />
-                                                        @else
-                                                            <img src="{{ asset('storage/profile/'.auth()->user()->profile)}}" class="rounded-circle img-thumbnail" alt="John Doe" />
-                                                        @endif
-                                                    </a>
+                                            <div class="info clearfix d-flex align-items-center">
+                                                <div class="image " style="width: 40px;height: 40px;object-fit: cover;">
+                                                    @if(\Illuminate\Support\Facades\Auth::user()->profile == 'default_profile.png')
+                                                        <img src="{{ \Illuminate\Support\Facades\Auth::user()->gender == 'male'? asset('admin/images/default_profile.png'):asset('admin/images/default_female.png')}}" class="w-100 h-100 rounded-circle img-thumbnail" alt="">
+                                                    @else
+                                                        <img src="{{asset('storage/profile/'.\Illuminate\Support\Facades\Auth::user()->profile)}}" class="w-100 h-100  rounded-circle" alt="">
+                                                    @endif
+
                                                 </div>
-                                                <div class="content">
+                                                <div class="content  text-left" style="margin-left: 15px;">
                                                     <h5 class="name">
                                                         <a href="#">{{Auth::user()->name}}</a>
                                                     </h5>
@@ -164,19 +186,21 @@
                                             <div class="account-dropdown__body">
                                                 <div class="account-dropdown__item">
                                                     <a href="{{route('profile',\Illuminate\Support\Facades\Auth::id())}}">
-                                                        <i class="zmdi zmdi-account"></i>Account</a>
+                                                        <i class="zmdi zmdi-account"></i>Account
+                                                    </a>
                                                 </div>
                                             </div>
                                             <div class="account-dropdown__body">
                                                 <div class="account-dropdown__item">
                                                     <a href="{{route('password_change')}}">
-                                                        <i class="zmdi zmdi-key"></i>Change Password</a>
+                                                        <i class="zmdi zmdi-key"></i>Change Password
+                                                    </a>
                                                 </div>
                                             </div>
                                             <div class="account-dropdown__footer">
                                                 <form action="{{route('logout')}}" class="p-3" method="post">
                                                     @csrf
-                                                    <button type="submit" class="btn btn-success w-100">
+                                                    <button type="submit" class="btn btn-danger w-100">
                                                         <i class="zmdi zmdi-power ml-2 mr-3"></i>Logout
                                                     </button>
                                                 </form>
@@ -194,7 +218,6 @@
            @yield('content')
             <!-- END PAGE CONTAINER-->
         </div>
-
     </div>
 
 

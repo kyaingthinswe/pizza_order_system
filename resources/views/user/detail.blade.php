@@ -21,7 +21,7 @@
                     <h3>{{$product->name}}</h3>
                     <div class="d-flex mb-3">
                         <small class="pt-1">
-                            {{$product->view_count}}<i class="fa fa-eye fa-fw ml-1"></i>
+                            {{$product->view_count +1 }}<i class="fa fa-eye fa-fw ml-1"></i>
                         </small>
                     </div>
                     <h3 class="font-weight-semi-bold mb-4">{{$product->price}} kyats</h3>
@@ -103,6 +103,17 @@
 @push('script')
     <script>
         $(document).ready(function () {
+            //increase view count
+            $.ajax({
+               type : 'get',
+               url : '/user/view/count',
+               data : {
+                   'productId' : $('#productId').val(),
+               } ,
+                dataType: 'json',
+            });
+
+
             $('#addBtn').click(function () {
                 $source = {
                     'userId' : $('#userId').val(),
@@ -112,13 +123,13 @@
                 // console.log($source);
                 $.ajax({
                     type : 'get',
-                    url : 'http://127.0.0.1:8000/user/addToCart',
+                    url : '/user/addToCart',
                     data : $source,
                     dataType : 'json',
                     success : function (response) {
                         console.log(response.status);
                         if (response.status == 200){
-                            // location.href = 'http://127.0.0.1:8000/user/home';
+                            // location.href = '/user/home';
                             alert('Your order is confirmed ...');
                         }
                     }

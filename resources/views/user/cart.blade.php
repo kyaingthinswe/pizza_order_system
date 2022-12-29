@@ -24,6 +24,7 @@
                             {{$c->product->name}}
                             <input type="hidden" value="{{\Illuminate\Support\Facades\Auth::id()}}" id="userId">
                             <input type="hidden" value="{{$c->product->id}}" id="productId">
+                            <input type="hidden" value="{{$c->id}}" id="cartId">
                         </td>
                         <td class="align-middle" id="price">{{$c->product->price}} kyats</td>
                         <td class="align-middle">
@@ -35,14 +36,18 @@
                                 </div>
                                 <input type="text" class="form-control form-control-sm bg-secondary border-0 text-center" id="qty" value="{{$c->qty}}">
                                 <div class="input-group-btn">
-                                    <button class="btn btn-sm btn-primary btn-plus">
+                                    <button class="btn btn-sm btn-primary btn-plus" >
                                         <i class="fa fa-plus"></i>
                                     </button>
                                 </div>
                             </div>
                         </td>
                         <td class="align-middle" id="total">{{$c->product->price * $c->qty}} kyats</td>
-                        <td class="align-middle"><button class="btn btn-sm btn-danger btn-remove" ><i class="fa fa-times"></i></button></td>
+                        <td class="align-middle">
+                            <button class="btn btn-sm btn-danger btn-remove" >
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </td>
                     </tr>
                 @empty
                     <tr >
@@ -73,6 +78,7 @@
                         <h5 id="finalPrice">{{$total+3000}} kyats</h5>
                     </div>
                     <button class="btn btn-block btn-primary font-weight-bold my-3 py-3" id="checkoutBtn">Proceed To Checkout</button>
+                    <button class="btn btn-block btn-danger font-weight-bold my-3 py-3" id="cancelBtn">Cancel Order</button>
                 </div>
             </div>
         </div>
@@ -110,10 +116,38 @@
                 total();
             });
 
+            //remove row
             $('.btn-remove').click(function () {
                 $parentNote = $(this).parents('tr');
-                $parentNote.remove();
+                $cartId = $parentNote.find('#cartId').val();
+                $parentNote.remove(); // remove frontend
+
+                // remove in DB
+                $.ajax({
+                    type : 'get',
+                    url : 'http://127.0.0.1:8000/user/cartRow/remove',
+                    data : {
+                        "cart_id" : $cartId,
+                    },
+                    dataType : 'json',
+
+
             });
+                total();
+
+            });
+
+            //remove all row
+            $('#cancelBtn').click(function () {
+                $("tbody tr").remove();
+                total();
+                $.ajax({
+                    type : 'get',
+                    url : '/user/cartRows/remove',
+                    dataType : 'json',
+                })
+            });
+
             function total() {
                 //SUBTOTAL
                 $subTotal = 0;
@@ -147,17 +181,18 @@
                 });
                 $.ajax({
                     type : 'get',
-                    url : 'http://127.0.0.1:8000/user/orderList',
+                    url : '/user/orderList',
                     data : Object.assign({},$data),
                     dataType : 'json',
                     success : function (response) {
                         if (response.status == 200){
-                            location.href = 'http://127.0.0.1:8000/user/home';
+                            location.href = '/user/home';
                         }
 
                     }
                 })
             });
+
 
         })
     </script>

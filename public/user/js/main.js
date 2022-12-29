@@ -1,6 +1,6 @@
 (function ($) {
     "use strict";
-    
+
     // Dropdown on mouse hover
     $(document).ready(function () {
         function toggleNavbarMethod() {
@@ -17,19 +17,25 @@
         toggleNavbarMethod();
         $(window).resize(toggleNavbarMethod);
     });
-    
-    
+
+
     // Back to top button
     $(window).scroll(function () {
         if ($(this).scrollTop() > 100) {
             $('.back-to-top').fadeIn('slow');
+            $('.message-box').fadeIn('slow');
         } else {
             $('.back-to-top').fadeOut('slow');
+            $('.message-box').fadeOut('slow');
         }
     });
     $('.back-to-top').click(function () {
         $('html, body').animate({scrollTop: 0}, 1500, 'easeInOutExpo');
         return false;
+    });
+    $('.message-box').click(function () {
+        $('.content-box').toggleClass('d-none');
+        $('.message-box-show').toggleClass('d-none');
     });
 
 
@@ -99,6 +105,6 @@
         }
         button.parent().parent().find('input').val(newVal);
     });
-    
+
 })(jQuery);
 

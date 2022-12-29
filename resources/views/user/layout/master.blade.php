@@ -31,7 +31,7 @@
 <!-- Navbar Start -->
 <div class="container-fluid bg-dark mb-30">
     <div class="row px-5">
-            <div class="col-lg-12 ">
+            <div class="col-lg-12 py-2">
                 <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 py-lg-0 px-0">
                     <a href="{{route('user_home')}}" class="text-decoration-none">
                         <span class="h1 text-uppercase text-primary bg-dark px-2">PIZZA</span>
@@ -44,12 +44,12 @@
                     <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                    <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                        <div class="navbar-nav mr-auto py-0">
-                            <a href="{{route('user_home')}}" class="nav-item nav-link active">Home</a>
-                            <a href="{{route('user_cartList')}}" class="nav-item nav-link">My Cart</a>
-                            <a href="contact.html" class="nav-item nav-link">Contact</a>
-                        </div>
+                    <div class="collapse navbar-collapse justify-content-between " id="navbarCollapse">
+{{--                        <div class="navbar-nav mr-auto py-0">--}}
+{{--                            <a href="{{route('user_home')}}" class="nav-item nav-link active">Home</a>--}}
+{{--                            <a href="{{route('user_cartList')}}" class="nav-item nav-link">My Cart</a>--}}
+{{--                            <a href="contact.html" class="nav-item nav-link">Contact</a>--}}
+{{--                        </div>--}}
                         <div class="navbar-nav ml-auto mr-3 py-0 d-none d-lg-block">
 
                         </div>
@@ -98,14 +98,35 @@
 
 
 <!-- Shop Start -->
-<div class="container-fluid">
+<div class="container-fluid content-box">
     <div class="row px-5">
 
         @yield('content')
     </div>
 </div>
 <!-- Shop End -->
-
+<div class="row d-none message-box-show">
+    <div class="col-6 m-auto">
+        <div class="card">
+            <div class="card-body">
+                <form action="{{route('contact_message')}}" method="post">
+                    @csrf
+                    <h4 class="font-weight-lighter mb-3">Get In Touch</h4>
+                    <div class="form-group d-flex ">
+                        <input type="text" class="form-control mr-2" name="name"  placeholder="First Name" required >
+                        <input type="email" class="form-control" name="email" placeholder="Email" required>
+                    </div>
+                    <div class="from-group">
+                        <textarea name="message" class="form-control" id="" cols="30" rows="10" placeholder="Leave a message ...." required></textarea>
+                    </div>
+                    <div class="form-group mt-3 text-center">
+                        <button type="submit" class="btn btn-primary w-25">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- Footer Start -->
 <div class="container-fluid bg-dark text-secondary mt-5 pt-5">
@@ -181,6 +202,11 @@
 
 <!-- Back to Top -->
 <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+<button class="btn btn-primary message-box">
+    <i class="fa-regular fa-message "></i>
+</button>
+<a href="#" ></a>
+
 
 
 <!-- JavaScript Libraries -->

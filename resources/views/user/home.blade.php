@@ -8,11 +8,18 @@
             <div class="col-12 pb-2">
                 <div class="d-flex align-items-center justify-content-between ">
                     <div>
-                        <a href="{{route('user_cartList')}}" class="btn btn-sm btn-dark text-primary position-relative rounded text-decoration-none">
-                            <i class="fa fa-cart-plus fa-fw"></i>
+                        <a href="{{route('user_cartList')}}"  class="btn btn-sm btn-dark text-primary position-relative rounded text-decoration-none mr-2">
+                            Add To Cart <i class="fa fa-cart-plus fa-fw mx-1"></i>
                             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary text-dark ">
-                            {{count($carts)}}
-                        </span>
+                                {{count($carts)}}
+                            </span>
+                        </a>
+                        <a href="{{route('user_order')}}" class="btn btn-sm btn-dark text-primary position-relative rounded text-decoration-none">
+                            Order History <i class="fa-solid fa-clock-rotate-left mx-1"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary text-dark ">
+                               {{-- {{count($orders)}} --}}
+                               {{$orders->total()}}
+                            </span>
                         </a>
                     </div>
                     <div class="ml-2">
@@ -76,7 +83,7 @@
                 if ($eventOption == 'desc'){
                     $.ajax({
                         type: 'get',
-                        url: 'http://127.0.0.1:8000/user/sorting',
+                        url: '/user/sorting',
                         // headers: {  'Access-Control-Allow-Origin': 'http://localhost:8000/user/sorting' },
                         data : {'status' : 'desc'},
                         dataType: 'json',
@@ -100,13 +107,7 @@
                                             <div class="d-flex align-items-center justify-content-center mt-2">
                                                 <h5>${response[$i].price} kyats</h5><h6 class="text-muted ml-2"><del>${response[$i].price}</del></h6>
                                             </div>
-                                            <div class="d-flex align-items-center justify-content-center mb-1">
-                                                <small class="fa fa-star text-primary mr-1"></small>
-                                                <small class="fa fa-star text-primary mr-1"></small>
-                                                <small class="fa fa-star text-primary mr-1"></small>
-                                                <small class="fa fa-star text-primary mr-1"></small>
-                                                <small class="fa fa-star text-primary mr-1"></small>
-                                            </div>
+
                                         </div>
                                     </div>
                                     </div>
@@ -119,7 +120,7 @@
                 }else{
                     $.ajax({
                         type: 'get',
-                        url: 'http://127.0.0.1:8000/user/sorting',
+                        url: '/user/sorting',
                         dataType: 'json',
                         data : {'status' : 'asc'},
                         success: function (response) {
@@ -142,13 +143,7 @@
                                             <div class="d-flex align-items-center justify-content-center mt-2">
                                                 <h5>${response[$i].price} kyats</h5><h6 class="text-muted ml-2"><del>${response[$i].price}</del></h6>
                                             </div>
-                                            <div class="d-flex align-items-center justify-content-center mb-1">
-                                                <small class="fa fa-star text-primary mr-1"></small>
-                                                <small class="fa fa-star text-primary mr-1"></small>
-                                                <small class="fa fa-star text-primary mr-1"></small>
-                                                <small class="fa fa-star text-primary mr-1"></small>
-                                                <small class="fa fa-star text-primary mr-1"></small>
-                                            </div>
+
                                         </div>
                                     </div>
                                     </div>

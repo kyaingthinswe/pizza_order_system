@@ -3024,7 +3024,7 @@ input[type="button"].btn-block {
 .dropdown-menu {
   position: absolute;
   top: 100%;
-  left: -20px;
+  left: -80px;
   z-index: 1000;
   display: none;
   float: left;
@@ -9695,6 +9695,7 @@ a.text-dark:hover, a.text-dark:focus {
 }
 
 .back-to-top {
+
   position: fixed;
   display: none;
   right: 30px;
@@ -9702,6 +9703,15 @@ a.text-dark:hover, a.text-dark:focus {
   z-index: 11;
   animation: action 1s infinite alternate;
 }
+.message-box {
+    position: fixed;
+    display: none;
+    right: 30px;
+    bottom: 80px;
+    z-index: 11;
+    animation: action 1s infinite alternate;
+}
+
 
 @keyframes action {
   0% {

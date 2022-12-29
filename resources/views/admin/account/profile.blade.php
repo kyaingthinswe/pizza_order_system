@@ -18,11 +18,11 @@
                         <div class="card-body">
                             <form action="{{route('password_update')}}" method="post" class="d-flex justify-content-between" novalidate="novalidate">
                                 @csrf
-                                <div class="profile_img  ">
+                                <div class="profile_img" style="width: 230px; height: 230px; object-fit: cover;">
                                     @if($user->profile == 'default_profile.png')
-                                        <img src="{{ $user->gender == 'male'? asset('admin/images/default_profile.png'):asset('admin/images/default_female.png')}}" class="w-100 img-thumbnail" alt="">
+                                        <img src="{{ $user->gender == 'male'? asset('admin/images/default_profile.png'):asset('admin/images/default_female.png')}}" class="w-100 h-100 rounded-circle img-thumbnail" alt="">
                                     @else
-                                        <img src="{{asset('storage/profile/'.$user->profile)}}" class="img-thumbnail rounded-circle" alt="">
+                                        <img src="{{asset('storage/profile/'.$user->profile)}}" class="img-thumbnail w-100 h-100 rounded-circle" alt="">
                                     @endif
                                 </div>
                                 <div class="w-50 ">

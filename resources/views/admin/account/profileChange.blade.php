@@ -2,17 +2,17 @@
 @section('title','profile')
 @section('content')
     <!-- MAIN CONTENT-->
-    <div class="main-content">
+    <div class="main-content mt-lg-0 mt-md-5">
         <div class="section__content section__content--p30">
             <div class="container-fluid">
-                <div class="col-6 offset-3">
+                <div class="col-lg-6 col-md-8 m-auto">
                     <div class="card p-4">
                         <div class="card-title text-center">
                             <h4 class="text-black-50">Edit Account Info</h4>
                         </div>
                         <div class="card-body">
                                 <div class="position-relative d-flex justify-content-center mb-3 w-50"  style="margin: auto;">
-                                    <button class="btn btn-secondary btn-sm position-absolute edit-btn " style="bottom:-10px;  " >
+                                    <button class="btn btn-success btn-sm position-absolute edit-btn " style="bottom:-10px;  " >
                                         <i class="fa fa-edit fa-fw "></i>
                                     </button>
                                     @if(\Illuminate\Support\Facades\Auth::user()->profile == 'default_profile.png')
@@ -104,7 +104,7 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <button class="btn btn-secondary w-100">Update Profile</button>
+                                        <button class="btn btn-success w-100">Update Profile</button>
                                     </div>
                                 </form>
                         </div>

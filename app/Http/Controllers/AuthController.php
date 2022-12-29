@@ -27,6 +27,8 @@ class AuthController extends Controller
         }
     }
 
+
+
     //password change
     public function passwordChange(){
         return view('admin.account.passwordChange');
@@ -102,20 +104,30 @@ class AuthController extends Controller
     public function accountList(){
         $users = User::when(\request('searchKey'),function ($q){
             $key = \request('searchKey');
-            $q->where("name","like","%$key%");
+            $q->where("role","like","%$key%");
         })->paginate(3);
         $users->appends(\request()->all());
+//        dd($users);
         return view('admin.account.accountList',compact('users'));
     }
+
     //Account Change Role
     public function accountChangeRole(Request $request,$id){
-        User::where('id',$id)->update([
-            'role' => 'admin',
-        ]);
+//        dd($request->toArray());
+
+        if($request->role == 'user'){
+            User::where('id',$id)->update([
+                'role' => 'admin',
+            ]);
+        }else{
+            User::where('id',$id)->update([
+                'role' => 'user',
+            ]);
+        }
+
         return redirect()->back()->with('status','Admin change success...');
-
-
     }
+
     //Account Delete
     public function accountDelete($id){
         $user = User::find($id);
@@ -123,7 +135,9 @@ class AuthController extends Controller
         if ($user->profile != 'default_profile.png'){
             Storage::delete('public/profile/.$user->profile');
         }
-        $user->delete();
+        if($user->id != 1){
+            $user->delete();
+        }
         return redirect()->route('account_list')->with('status','Account is deleted');
 
     }
